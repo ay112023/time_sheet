@@ -144,21 +144,28 @@ Private Sub Calculate_Person(CurrentSheet As Worksheet, RowStart As Integer)
          
          
          If Shift = 2 Then
-           ShiftPart = ShiftPart + 1 'Следующие сутки ночной смены: 2-я половина смены если в табеле снова "/2"
-           
-           If ShiftPart > 2 Then
-              ShiftPart = 1
+         
+           If ShiftLatency = 8 Or ShiftLatency = 7 Then
+             ShiftPart = 2
            End If
+         
+           'Следующие сутки ночной смены: 2-я половина смены если в табеле снова "/2"
+           'ShiftPart = ShiftPart + 1
+           
+           'If ShiftPart > 2 Then
+           '   ShiftPart = 1
+           'End If
            
            'Если в 1-й день месяца есть ночная смена
            'проверяем, не следующие ли это сутки ночной смены
            'для этого анализируем значение 2-го дня месяца
-           If IndexCol = gTimeSheetColStart Then
-             NextValue = Trim(CurrentSheet.Cells(IndexRow, IndexCol + 1))
-             If Not (NextValue Like "#" + Divider + "2") Then
-               ShiftPart = 2
-             End If
-           End If
+           
+           'If IndexCol = gTimeSheetColStart Then
+           '  NextValue = Trim(CurrentSheet.Cells(IndexRow, IndexCol + 1))
+           '  If Not (NextValue Like "#" + Divider + "2") Then
+           '    ShiftPart = 2
+           '  End If
+           'End If
            
           Else
            ShiftPart = 0
